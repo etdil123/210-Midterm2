@@ -9,12 +9,12 @@
 using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+const int MINUTES = 20;
 
 class DoublyLinkedList {
 private:
     struct Node {
         int data;
-        string name;
         Node* prev;
         Node* next;
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
@@ -213,8 +213,24 @@ public:
 
 int main() {
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
-    
+    vector<string> namesVec;
+
+    ifstream names("/Users/ethandilk/Desktop/Computer Science/COMSC 210 - Program Design & Data Structures/Midterm2/names.txt");
+
+    if (!names) {
+        cout << "Error opening - please try again!" << endl;
+        exit(1);
+    }
+
+    // initialize names input into vector
+    // temp string to store each name
+    string n; 
+    while(getline(names, n)) {
+        namesVec.push_back(n);
+    }
+
 
     
+
     return 0;
 }
