@@ -130,6 +130,8 @@ public:
             newNode->prev = tail;
             tail = newNode;
         }
+
+        cout << "   " << newNode->data << " joined the line" << endl;
     }
     
     void push_front(string v) {
@@ -141,6 +143,8 @@ public:
             head->prev = newNode;
             head = newNode;
         }
+
+        cout << "   " << newNode->data << " joined the line" << endl;
     }
     
     void pop_front() {
@@ -158,6 +162,8 @@ public:
         }
         else
             head = tail = nullptr;
+
+        cout << "   " << temp->data << " is served" << endl;
         delete temp;
     }
 
@@ -174,6 +180,8 @@ public:
         }
         else
             head = tail = nullptr;
+
+        cout << "   " << temp->data << " (at the rear) left the line" << endl;
         delete temp;
     }
 
@@ -185,13 +193,14 @@ public:
         }
     }
     void print() {
+        cout << "   Resulting Line: " << endl;
         Node* current = head;
         if (!current) {
             cout << "List is empty." << endl;
             return;
         }
         while (current) {
-            cout << current->data << " ";
+            cout << "       " << current->data << " " << endl;
             current = current->next;
         }
         cout << endl;
@@ -213,6 +222,10 @@ public:
 
 int main() {
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+    cout << endl;
+
+    srand(time(0));
+
     vector<string> namesVec;
 
     ifstream names("/Users/ethandilk/Desktop/Computer Science/COMSC 210 - Program Design & Data Structures/Midterm2/names.txt");
@@ -231,9 +244,14 @@ int main() {
 
     DoublyLinkedList newLine;
 
+    cout << "Store Opens: " << endl;
+
     for (int i = 0; i < 5; i++) {
-        int randVecIndex = (rand() % 98)
+        int randVecIndex = (rand() % 98);
+        newLine.push_back(namesVec.at(randVecIndex));
     }
+    
+    newLine.print();
     
     return 0;
 }
