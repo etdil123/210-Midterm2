@@ -222,6 +222,21 @@ public:
         }
         cout << endl;
     }
+
+    int get_length() {
+        int length = 0;
+        Node* current = head;
+        if (!current) {
+            return 0;
+        }
+        while (current) {
+            length++;
+            current = current->next;
+
+        }
+        return length;
+
+    }
 };
 
 int main() {
@@ -230,10 +245,11 @@ int main() {
 
     srand(time(0));
 
+    // creating vector to store names
     vector<string> namesVec;
-
+    // ifstream object to read in names
     ifstream names("/Users/ethandilk/Desktop/Computer Science/COMSC 210 - Program Design & Data Structures/Midterm2/names.txt");
-
+    // error if names is null
     if (!names) {
         cout << "Error opening - please try again!" << endl;
         exit(1);
@@ -245,23 +261,26 @@ int main() {
     while(getline(names, n)) {
         namesVec.push_back(n);
     }
-
+    // initializing a DLL object
     DoublyLinkedList newLine;
 
     cout << "Store Opens: " << endl;
-    // creating the initial Store opening simulation of 5 customers
+    // creating the initial Store opening simulation of 5 customers being pushed back into the line
     for (int i = 0; i < 5; i++) {
         int randVecIndex = (rand() % 98);
         newLine.push_back(namesVec.at(randVecIndex));
     }
     newLine.print();
 
+    // Simulation of 20 minutes (time periods)
     for (int k = 0; k < 5; k++) {
         cout << "Time Step #" << k + 1 << ": "<< endl;
 
+        // get a random probability between 0 and 100
         int prob = rand() % 100 + 1;
         cout << prob << endl;
 
+        // If the probability meets each certain threshold - do the action 
         if (prob <= 60) {
 
             int randVecIndex = (rand() % 98);
@@ -275,15 +294,23 @@ int main() {
             newLine.pop_back();
         }
         if (prob <= 10) {
+            // pushing a VIP to the front
             int randVecIndex = (rand() % 98);
             newLine.push_front(namesVec.at(randVecIndex));
+
+            // Removing a random person from line
+            int dllLength = newLine.get_length();
+            int randListIndex = rand() % dllLength;
+            newLine.delete_pos(randListIndex);
+
         }
+        if (prob > 60)
+            cout << "   Line did not change!" << endl;
         
 
         newLine.print();
 
     }
 
-    
     return 0;
 }
