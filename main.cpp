@@ -254,10 +254,13 @@ int main() {
         int randVecIndex = (rand() % 98);
         newLine.push_back(namesVec.at(randVecIndex));
     }
+    newLine.print();
 
-    for (int k = 0; k < 20; k++) {
+    for (int k = 0; k < 5; k++) {
+        cout << "Time Step #" << k + 1 << ": "<< endl;
 
         int prob = rand() % 100 + 1;
+        cout << prob << endl;
 
         if (prob <= 60) {
 
@@ -265,11 +268,22 @@ int main() {
             newLine.push_back(namesVec.at(randVecIndex));
 
         }
+        if (prob <= 40){
+            newLine.pop_front();
+        }
+        if (prob <= 20) {
+            newLine.pop_back();
+        }
+        if (prob <= 10) {
+            int randVecIndex = (rand() % 98);
+            newLine.push_front(namesVec.at(randVecIndex));
+        }
+        
+
+        newLine.print();
 
     }
 
-    
-    newLine.print();
     
     return 0;
 }
