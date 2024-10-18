@@ -81,6 +81,7 @@ public:
         else
             tail = temp->prev; 
 
+        cout << "   " << temp->data << " left the line" << endl;
         delete temp;
     }
 
@@ -118,6 +119,9 @@ public:
         Node* tempPrev = temp->prev;
         tempPrev->next = temp->next;
         temp->next->prev = tempPrev;
+
+        cout << "   " << temp->data << " left the line" << endl;
+
         delete temp;
     }
 
@@ -144,7 +148,7 @@ public:
             head = newNode;
         }
 
-        cout << "   " << newNode->data << " joined the line" << endl;
+        cout << "   " << newNode->data << " (VIP) joins the front of the line" << endl;
     }
     
     void pop_front() {
@@ -245,11 +249,25 @@ int main() {
     DoublyLinkedList newLine;
 
     cout << "Store Opens: " << endl;
-
+    // creating the initial Store opening simulation of 5 customers
     for (int i = 0; i < 5; i++) {
         int randVecIndex = (rand() % 98);
         newLine.push_back(namesVec.at(randVecIndex));
     }
+
+    for (int k = 0; k < 20; k++) {
+
+        int prob = rand() % 100 + 1;
+
+        if (prob <= 60) {
+
+            int randVecIndex = (rand() % 98);
+            newLine.push_back(namesVec.at(randVecIndex));
+
+        }
+
+    }
+
     
     newLine.print();
     
