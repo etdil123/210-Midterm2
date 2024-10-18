@@ -267,19 +267,18 @@ int main() {
     cout << "Store Opens: " << endl;
     // creating the initial Store opening simulation of 5 customers being pushed back into the line
     for (int i = 0; i < 5; i++) {
-        int randVecIndex = (rand() % 98);
+        int randVecIndex = (rand() % namesVec.size());
         newLine.push_back(namesVec.at(randVecIndex));
     }
     newLine.print();
 
     // Simulation of 20 minutes (time periods)
-    for (int k = 0; k < 5; k++) {
+    for (int k = 1; k < 20; k++) {
         cout << "Time Step #" << k + 1 << ": "<< endl;
 
         // get a random probability between 0 and 100
         int prob = rand() % 100 + 1;
-        cout << prob << endl;
-
+        
         // If the probability meets each certain threshold - do the action 
         if (prob <= 60) {
 
@@ -288,26 +287,31 @@ int main() {
 
         }
         if (prob <= 40){
+            // customer is helped and out of line
             newLine.pop_front();
         }
         if (prob <= 20) {
+            // customer in the back leaves
             newLine.pop_back();
         }
         if (prob <= 10) {
             // pushing a VIP to the front
-            int randVecIndex = (rand() % 98);
-            newLine.push_front(namesVec.at(randVecIndex));
+            int randVecIndex = (rand() % namesVec.size());
+            newLine.push_back(namesVec.at(randVecIndex));
 
             // Removing a random person from line
             int dllLength = newLine.get_length();
-            int randListIndex = rand() % dllLength;
-            newLine.delete_pos(randListIndex);
+            if (dllLength > 0) {
+                int randListIndex = rand() % dllLength;
+                newLine.delete_pos(randListIndex + 1);
+            }
 
         }
         if (prob > 60)
+            // Nothing happened in line - the remaining 40% probability not accounted for by any action
             cout << "   Line did not change!" << endl;
         
-
+        // print out the line at the end of each iteration
         newLine.print();
 
     }
